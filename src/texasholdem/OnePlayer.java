@@ -18,6 +18,7 @@ Player p1 = new Player();
         AI AI3 = new AI();
         Deck d = new Deck();
         
+        
     /**
      * Creates new form OnePlayer
      */
@@ -25,29 +26,30 @@ Player p1 = new Player();
         initComponents();
         
         d.shuffle();
-        p1.hand();
-       
         
         for(int i =0; i <2; i++)
         {
-        //p1.h.addCard(d.deck.get(0));
+        Cards c1 = d.deck.get(0);
+        //p1.addCard(c1);
         //deckCount++;
         }
         for(int i =0; i <2; i++)
         {
-        //AI1.h.addCard(d.deck.get(deckCount));
+        //AI1.addCard(d.deck.get(deckCount));
         //deckCount++;
         }
         for(int i =0; i <2; i++)
         {
-        //AI2.h.addCard(d.deck.get(deckCount));
+        //AI2.addCard(d.deck.get(deckCount));
         //deckCount++;
         }
         for(int i =0; i <2; i++)
         {
-        //AI3.h.addCard(d.deck.get(deckCount));
+        //AI3.addCard(d.deck.get(deckCount));
         //deckCount++;
         }
+        
+       
         
     }
 
@@ -280,8 +282,8 @@ Player p1 = new Player();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jLabel12MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MousePressed
-        // TODO add your handling code here:
-        
+        // reveals card when clicked:
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ p1.hand.get(0).toString() +".png")));
         //jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ c +".png")));
         
        

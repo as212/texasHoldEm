@@ -5,6 +5,9 @@
  */
 package texasholdem;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 /**
  *
  * @author adams_000
@@ -13,7 +16,7 @@ public class Player {
    private int chips = 20;
    Hand h = new Hand();
    boolean didFold = false;
-   int handValue;
+   private int handValue;
    
    public int getChips()
    {
@@ -46,10 +49,33 @@ public class Player {
            
    }
    
-   public void hand()
-        {
-            Hand h = new Hand();
+    public void setHandValue(int value)
+    {
+        handValue = value;
+    }     
+    public int getHandValue()
+    {
+        return handValue;
+        
+    }        
+        
+    ArrayList<Cards> hand = new ArrayList<Cards>();
+        
+        
+    public void addCard(Cards c)
+    {
+        
+       hand.add(c);
+    }
+    public void sortHand(ArrayList<Cards> hand)
+    {
+        
+        Collections.sort(hand);
+              
+              
+    }  
+     
             
         }
     
-}
+
