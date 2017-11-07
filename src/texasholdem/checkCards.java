@@ -37,13 +37,13 @@ public class checkCards {
     // royal flush
     if((c0.suit == c1.suit && c1.suit == c2.suit && c2.suit == c3.suit && c3.suit == c4.suit)|| (c1.suit == c2.suit && c2.suit == c3.suit && c3.suit == c4.suit && c4.suit == c5.suit)||(c2.suit == c3.suit && c3.suit == c4.suit && c4.suit == c5.suit && c5.suit == c6.suit) && (c0.value == 0 || c1.value == 0|| c2.value == 0 || c3.value == 0 || c4.value == 0 || c5.value == 0 || c6.value == 0 ) && (c0.value == 12 || c1.value == 12|| c2.value == 12 || c3.value == 12 || c4.value == 12 || c5.value == 12 || c6.value == 12 )&&(c0.value == 11 || c1.value == 11|| c2.value == 11 || c3.value == 11 || c4.value == 11 || c5.value == 11 || c6.value == 11 )&& (c0.value == 10 || c1.value == 10|| c2.value == 10 || c3.value == 10 || c4.value == 10 || c5.value == 10 || c6.value == 10 )&& (c0.value == 9 || c1.value == 9|| c2.value == 9 || c3.value == 9 || c4.value == 9 || c5.value == 9 || c6.value == 9 ))
     {
-        
+        handValue = 21;
     }    
     // straight flush
     else if((c0.value == c1.value -1 && c1.value == c2.value -1 && c2.value == c3.value -1 && c3.value == c4.value -1)|| (c1.value == c2.value -1 && c2.value == c3.value -1 && c3.value == c4.value -1 && c4.value == c5.value -1)|| (c2.value == c3.value -1 && c3.value == c4.value -1 && c4.value == c5.value -1 && c5.value == c6.value -1)&& (c0.suit == c1.suit && c1.suit == c2.suit && c2.suit == c3.suit && c3.suit == c4.suit)|| (c1.suit == c2.suit && c2.suit == c3.suit && c3.suit == c4.suit && c4.suit == c5.suit)||(c2.suit == c3.suit && c3.suit == c4.suit && c4.suit == c5.suit && c5.suit == c6.suit))
     {
         
-        
+        handValue = 20;
     }    
     // four of a kind
     else if((c0.value == c1.value && c1.value == c2.value && c2.value == c3.value) || (c1.value == c2.value && c2.value == c3.value && c3.value == c4.value) || (c2.value == c3.value && c3.value == c4.value && c4.value == c5.value) || (c3.value == c4.value && c4.value == c5.value && c5.value == c6.value))
