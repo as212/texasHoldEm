@@ -10,49 +10,60 @@ package texasholdem;
  * @author adams_000
  */
 public class OnePlayer extends javax.swing.JFrame {
-int turnCount = 0;
+int turnCount = 1;
 int deckCount = 0;
+int playerCount = 1;
+int minimumBet = 0;
+private int pot = 0;
+int p1Chips;
+int AI1Chips;
+int AI2Chips;
+int AI3Chips;  
+
 Player p1 = new Player();
         AI AI1 = new AI();
         AI AI2 = new AI();
         AI AI3 = new AI();
         Deck d = new Deck();
+        Cards cc1 = new Cards(0,0);
+        Cards cc2 = new Cards(0,0);
+        Cards cc3 = new Cards(0,0);
+        Cards cc4 = new Cards(0,0);
+        Cards cc5 = new Cards(0,0);
+
         
         
+        
+        
+        
+      public void updatePot(int x)
+      {
+          pot = pot + x;
+      }        
+      public void resetPot()
+      {
+          pot = 0;
+      }        
     /**
      * Creates new form OnePlayer
      */
     public OnePlayer() {
         initComponents();
-        
+        d.deck();
         d.shuffle();
-        
-        for(int i =0; i <2; i++)
-        {
-        Cards c1 = d.deck.get(0);
-        //p1.addCard(c1);
-        //deckCount++;
-        }
-        for(int i =0; i <2; i++)
-        {
-        //AI1.addCard(d.deck.get(deckCount));
-        //deckCount++;
-        }
-        for(int i =0; i <2; i++)
-        {
-        //AI2.addCard(d.deck.get(deckCount));
-        //deckCount++;
-        }
-        for(int i =0; i <2; i++)
-        {
-        //AI3.addCard(d.deck.get(deckCount));
-        //deckCount++;
-        }
+        jLabel28.setText( "1"  );
         
        
         
+        
+        
+        
+        
+        
+       
+        
+    
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -69,6 +80,9 @@ Player p1 = new Player();
         jButton1 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
         jButton7 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -97,6 +111,9 @@ Player p1 = new Player();
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
+        jButton8 = new javax.swing.JButton();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
 
         jPanel2.setBackground(new java.awt.Color(102, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -113,8 +130,13 @@ Player p1 = new Player();
         });
         jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 120, -1, -1));
 
-        jButton4.setText("Bet minimum");
-        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 180, -1, -1));
+        jButton4.setText("Call");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 180, 110, -1));
 
         jButton5.setText("All in");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -123,6 +145,15 @@ Player p1 = new Player();
             }
         });
         jPanel2.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 230, 110, -1));
+
+        jLabel26.setText("Must bet at least");
+        jPanel2.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 120, -1, -1));
+
+        jLabel27.setText("0");
+        jPanel2.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 120, 30, -1));
+
+        jLabel29.setText("Otherwise hit call");
+        jPanel2.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 150, -1, -1));
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
         jDialog1.getContentPane().setLayout(jDialog1Layout);
@@ -177,12 +208,26 @@ Player p1 = new Player();
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 400, -1, -1));
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/b1fv.png"))); // NOI18N
+        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel11MousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jLabel11MouseReleased(evt);
+            }
+        });
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 400, -1, -1));
 
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/b1fv.png"))); // NOI18N
         jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel12MouseClicked(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLabel12MousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jLabel12MouseReleased(evt);
             }
         });
         jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 400, -1, -1));
@@ -218,10 +263,10 @@ Player p1 = new Player();
         });
         jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 90, -1));
 
-        jLabel18.setText("Pot: 0");
-        jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 250, 160, -1));
+        jLabel18.setText("Pot: ");
+        jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 250, 30, -1));
 
-        jLabel19.setText("Current Player : Player X");
+        jLabel19.setText("Current Player : Player ");
         jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, -1, -1));
 
         jButton6.setText("Restart");
@@ -244,6 +289,20 @@ Player p1 = new Player();
         jLabel24.setText("Chips:");
         jPanel1.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 330, -1, -1));
 
+        jButton8.setText("Deal");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, 90, 30));
+
+        jLabel25.setText("0");
+        jPanel1.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 250, 70, -1));
+
+        jLabel28.setText("0");
+        jPanel1.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 50, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -261,6 +320,8 @@ Player p1 = new Player();
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // allows player to bet
         jDialog1.setVisible(true);
+        jLabel27.setText("" + minimumBet);
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -268,11 +329,117 @@ Player p1 = new Player();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+       //bet
+       
+       int x = Integer.parseInt(jTextField1.getText());
+       if(x > minimumBet){
+       if (playerCount == 1)
+       {
+           p1.subtractChips(x);
+           if ( x> minimumBet)
+           {
+               minimumBet = x;
+           }    
+           p1.count = 1;
+           playerCount = 2;
+           updatePot(x);
+           updateChips();
+           
+       } 
+       else if(playerCount == 2)
+       {
+           AI1.subtractChips(x);
+           if ( x> minimumBet)
+           {
+               minimumBet = x;
+           }    
+           AI1.count = 1;
+           playerCount = 3;
+           updatePot(x);
+           updateChips();
+       }
+       else if(playerCount == 3)
+       {
+           AI2.subtractChips(x);
+           if ( x> minimumBet)
+           {
+               minimumBet = x;
+           }    
+           AI2.count = 1;
+           playerCount =4;
+           updatePot(x);
+           updateChips();
+       }
+       else if(playerCount == 4)
+       {
+           AI3.subtractChips(x);
+           if ( x> minimumBet)
+           {
+               minimumBet = x;
+           }    
+           AI3.count = 1;
+           playerCount = 1;
+           updatePot(x);
+           updateChips();
+       }
+       jDialog1.setVisible(false);
+       jLabel28.setText( "" + playerCount  );
+       }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+        // bets all chips
+        
+        if (playerCount == 1)
+       {
+           int x = p1.getChips();
+           p1.subtractChips(x);
+           if ( x> minimumBet)
+           {
+               minimumBet = x;
+           }    
+           p1.count = 1;
+           playerCount = 2;
+           updatePot(x);
+       } 
+       else if(playerCount == 2)
+       {
+           
+           int x = AI1.getChips();
+           AI1.subtractChips(x);
+           if ( x> minimumBet)
+           {
+               minimumBet = x;
+           }    
+           AI1.count = 1;
+           playerCount = 3;
+           updatePot(x);
+       }
+       else if(playerCount == 3)
+       {
+           int x = AI2.getChips();
+           AI2.subtractChips(x);
+           if ( x> minimumBet)
+           {
+               minimumBet = x;
+           }    
+           AI2.count = 1;
+           playerCount =4;
+           updatePot(x);
+       }
+       else if(playerCount == 4)
+       {
+           int x = AI3.getChips();
+           AI3.subtractChips(x);
+           if ( x> minimumBet)
+           {
+               minimumBet = x;
+           }    
+           AI3.count = 1;
+           playerCount = 1;
+           updatePot(x);
+       }
+       jDialog1.setVisible(false);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -284,13 +451,149 @@ Player p1 = new Player();
     private void jLabel12MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MousePressed
         // reveals card when clicked:
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ p1.hand.get(0).toString() +".png")));
-        //jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ c +".png")));
+        
         
        
         
         
     }//GEN-LAST:event_jLabel12MousePressed
 
+    private void jLabel12MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseReleased
+        //turns card back facedown when released
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/b1fv.png")));
+    }//GEN-LAST:event_jLabel12MouseReleased
+
+    private void jLabel11MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MousePressed
+        // reveals card when clicked
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ p1.hand.get(1).toString() +".png")));
+    }//GEN-LAST:event_jLabel11MousePressed
+
+    private void jLabel11MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseReleased
+        // turns card back facedown
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/b1fv.png")));
+    }//GEN-LAST:event_jLabel11MouseReleased
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // deals cards
+        if(p1Chips == 80 || AI1Chips == 80 || AI2Chips == 80 || AI3Chips == 80  )
+        {
+            WinLose l = new WinLose();
+            l.show();
+        }
+        if(turnCount == 0)
+        {    
+        for(int i =0; i <2; i++)
+        {
+        
+        p1.addCard(d.deck.get(deckCount));
+        deckCount++;
+        }
+        for(int i =0; i <2; i++)
+        {
+        AI1.addCard(d.deck.get(deckCount));
+        deckCount++;
+        }
+        for(int i =0; i <2; i++)
+        {
+        AI2.addCard(d.deck.get(deckCount));
+        deckCount++;
+        }
+        for(int i =0; i <2; i++)
+        {
+        AI3.addCard(d.deck.get(deckCount));
+        deckCount++;
+        }
+             cc1 = d.deck.get(deckCount);
+             deckCount++;
+             cc2 = d.deck.get(deckCount);
+             deckCount++;
+             cc3 = d.deck.get(deckCount);
+             deckCount++;
+             cc4 = d.deck.get(deckCount);
+             deckCount++;
+             cc5 = d.deck.get(deckCount);
+             deckCount++;
+             jButton8.setVisible(false);
+             turnCount = turnCount + 1;
+             
+        }
+        if (turnCount == 1)
+        {
+              jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ cc1.toString() +".png"))); 
+              jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ cc2.toString() +".png"))); 
+              jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ cc3.toString() +".png"))); 
+              turnCount = turnCount + 1;
+        
+        }
+        if (turnCount ==2)
+        {    
+            jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ cc4.toString() +".png"))); 
+            turnCount = turnCount + 1;
+        }
+        if (turnCount ==3)
+        {    
+            jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ cc4.toString() +".png"))); 
+            turnCount = 0 ;
+        }
+        
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // bets the smallest amount allowed
+        int x = minimumBet;
+        if (playerCount == 1)
+       {
+           p1.subtractChips(x);
+            
+           p1.count = 1;
+           playerCount = 2;
+           updatePot(x);
+       } 
+       else if(playerCount == 2)
+       {
+           AI1.subtractChips(x);
+             
+           AI1.count = 1;
+           playerCount = 3;
+           updatePot(x);
+       }
+       else if(playerCount == 3)
+       {
+           AI2.subtractChips(x);
+            
+           AI2.count = 1;
+           playerCount =4;
+           updatePot(x);
+       }
+       else if(playerCount == 4)
+       {
+           AI3.subtractChips(x);
+           
+           AI3.count = 1;
+           playerCount = 1;
+           updatePot(x);
+       }
+       jDialog1.setVisible(false);
+        
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel12MouseClicked
+     public  void updateChips()
+        {        
+        
+          
+        
+            jLabel28.setText("1");
+            
+            jLabel28.setText("1");
+            
+            jLabel28.setText("1");
+            AI2.turn();
+            jLabel28.setText("1");
+            
+        }
     /**
      * @param args the command line arguments
      */
@@ -323,7 +626,9 @@ Player p1 = new Player();
             public void run() {
                 new OnePlayer().setVisible(true);
             }
+            
         });
+       
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -334,6 +639,7 @@ Player p1 = new Player();
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -352,6 +658,11 @@ Player p1 = new Player();
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -363,4 +674,5 @@ Player p1 = new Player();
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
+  
 }
