@@ -39,7 +39,11 @@ Player p1 = new Player();
       {
           pot = pot + x;
           jLabel25.setText("" + pot);
-      }        
+      }  
+public void setPot(int x)
+{
+ pot = x;   
+}
       public void resetPot()
       {
           pot = 0;
@@ -515,6 +519,8 @@ Player p1 = new Player();
            AI3.subtractChips(AI3.getChips());
        
            //checkNegative(AI3);
+           setPot(80);
+           updatePot(0);
            updateChips();
            jButton8.setVisible(true);
            turnCount = 5;
@@ -618,7 +624,8 @@ Player p1 = new Player();
             jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ AI2.hand.get(1) +".png")));
             jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ d.deck.get(6) +".png")));
             jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ d.deck.get(7) +".png")));
-        
+             jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ cc4.toString() +".png"))); 
+           jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ cc5.toString() +".png"))); 
               
                 jButton8.setVisible(true);
         }   
