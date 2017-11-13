@@ -615,6 +615,7 @@ public void setPot(int x)
         else if (turnCount == 5)
         {
             getWinner();
+            updateChips();
             turnCount = 1;
             jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ d.deck.get(0) +".png")));
             jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ d.deck.get(1) +".png")));
