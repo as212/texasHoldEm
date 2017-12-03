@@ -37,6 +37,8 @@ public class start extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
+        jDialog1.setSize(new java.awt.Dimension(801, 496));
+
         jTextPane1.setText("The purpose of this game is to create the best hand possible between your hand and the common cards in the middle.\n\nTypes of hands:\nRoyal flush : A, K, Q, J, 10, all the same suit. \nStraight Flush: Five cards in a sequence, all in the same suit. \nFour of a kind: All four cards of the same rank.\nFull House: Three of a kind with a pair.\nFlush: Any five cards of the same suit, but not in a sequence\nStraight: Five cards in a sequence, but not of the same suit. \nThree of a kind: Three cards of the same rank.\nTwo Pair: Two different pairs.\nPair: Two cards of the same rank. \nHigh Card: Highest rank card in your hand \n");
         jScrollPane1.setViewportView(jTextPane1);
 
@@ -44,7 +46,7 @@ public class start extends javax.swing.JFrame {
         jDialog1.getContentPane().setLayout(jDialog1Layout);
         jDialog1Layout.setHorizontalGroup(
             jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE)
         );
         jDialog1Layout.setVerticalGroup(
             jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -74,7 +76,7 @@ public class start extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 310, -1, -1));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 310, 160, -1));
 
         jButton2.setText("Instructions");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -82,7 +84,7 @@ public class start extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 350, 100, -1));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 350, 160, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

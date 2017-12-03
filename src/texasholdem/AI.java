@@ -12,63 +12,112 @@ import java.util.Random;
 public class AI extends Player {
     Random r = new Random();
     Random q = new Random();
+     int betChips;
     
-    public int AIturn(int difficulty, int minimum, AI a)
+    public int AIturn(int difficulty, int minimum, Player a)
     {               
-       if (difficulty == 0)
-       {    
-        int choice = r.nextInt(100);
-       
-       if(choice < 90)
+       if(didFold ==1 || didLose == 1)
        {
-           int betChips = getChips() + 1;
-           int maximum = getChips();
-           while (betChips > maximum)
-           {    
-           betChips = q.nextInt(minimum);
-           }
+           return 0;
+       }  
+        if (difficulty == 0)
+       {    
+        
+          
+       
+           
+          
+           
+           
+             
+               betChips = a.getTotalBet() - getTotalBet();
+             
+         
+                       
+                      
+                       
+               
+           
            
            subtractChips(betChips);
-           return betChips;
-       }
-       else
-       {
-           didFold = true;
            
-       }
+           return betChips;
        
        }
-       else
+
+       
+       
+        
+       if(difficulty == 1)
+        {   
        {
+            
            checkCards c = new checkCards();
            
-           a.sortHand(a.hand); 
-           int hvalue = c.checkCards(a.hand);
-           if ( hvalue > 15)
+           sortHand(hand); 
+           System.out.print(hand);
+           a.setHandValue(c.checkCards(hand))  ;
+           System.out.print(getHandValue());
+           if ( getHandValue() >=0)
            {
-                int betChips = getChips() + 1;
-           int maximum = getChips();
-           while (betChips > maximum)
-           {    
-           betChips = q.nextInt(minimum);
-           return betChips;
-           }
+             betChips = 4;
+             /*if( betChips < minimum)
+             {    
+                 didFold = 1;
+                 return 0;
+             }   
+          */ subtractChips(betChips);
            
-           subtractChips(betChips);
        }
-           else if ( hvalue > 19)
+          
+           if ( getHandValue() > 10)
+           {
+             betChips = 5;
+           /*  if( betChips < minimum)
+             {    
+                 didFold = 1;
+                 return 0;
+             }   
+           */subtractChips(betChips);
+           allIn();
+       }
+           
+           
+           
+           
+           if ( getHandValue() > 19)
            {   
+              if(didFold == 1)
+         {
+                  int betChips = 0;
+                   return betChips;
+         }    
                subtractChips(a.getChips());
-               return a.getChips();
+                allIn();
+                   return a.getChips();
            }
-           else 
-           {
-               didFold = true;
-           }
+           else
+           {    
+             int betchips = 3;
+             subtractChips(betChips);
+             return betChips;
+           }    
            
        }
-       return 0;
+        }
+        return betChips;
     }
-
+     public int allIn()
+     {
+         int bet = getChips();
+         if(getChips() < 0)
+         {   
+             
+             subtractChips(getChips());
+             
+         }
+         return bet;
+     }        
+             
     
 }

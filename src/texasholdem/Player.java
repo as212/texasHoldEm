@@ -15,8 +15,11 @@ import java.util.Collections;
 public class Player {
    private int chips = 20;
    Hand h = new Hand();
-   boolean didFold = false;
+   int didFold = 0;
    private int handValue;
+   public int count;
+   private int totalBet = 0;
+   public int didLose = 0;
    
    public int getChips()
    {
@@ -25,29 +28,17 @@ public class Player {
    public int subtractChips(int x)
    {
        chips = chips - x;
+       setTotalBet(x);
        return chips;
    }
    public int addChips(int x)
    {
         chips = chips + x;
+        
         return chips;
    }   
            
-   public void turn()
-   {
-       int count = 0;
-       if(didFold = true)
-       {
-           count = count + 1;
-       }
-       while(count < 1)
-       {
-           
-       }
-        
-        
-           
-   }
+  
    
     public void setHandValue(int value)
     {
@@ -59,6 +50,11 @@ public class Player {
         
     }        
         
+    public void getNewHand()
+    {
+       ArrayList<Cards> hand = new ArrayList<Cards>(); 
+    }        
+    
     ArrayList<Cards> hand = new ArrayList<Cards>();
         
         
@@ -74,8 +70,29 @@ public class Player {
               
               
     }  
-     
-            
+    public int getTotalBet() 
+    {
+        return totalBet;
+    }
+    public void setTotalBet(int x)
+    {
+        totalBet = totalBet + x;
+    }        
+    public void setChips(int x)
+    {
+        chips = x;
+    }        
+    public void resetTotalBet()
+    {        
+        totalBet = 0;
+    }  
+    public void didLose()
+    {
+      if(chips ==0)  
+      {
+          didLose = 1;
+      }  
+    }        
         }
     
 

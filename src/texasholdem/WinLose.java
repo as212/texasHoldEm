@@ -10,12 +10,14 @@ package texasholdem;
  * @author adams_000
  */
 public class WinLose extends javax.swing.JFrame {
+    String s;
 
     /**
      * Creates new form WinLose
      */
     public WinLose() {
         initComponents();
+        
     }
 
     /**
@@ -89,7 +91,14 @@ public class WinLose extends javax.swing.JFrame {
         start s = new start();
         s.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    public void winLose(int a)
+    {
+        
+        
+        s = "Player" + a + "wins";
+        jLabel6.setText(s);
+        
+    }        
     /**
      * @param args the command line arguments
      */

@@ -10,14 +10,74 @@ package texasholdem;
  * @author adams_000
  */
 public class TwoPlayer extends javax.swing.JFrame {
+int turnCount = 1;
+int deckCount = 0;
+int playerCount = 1;
+int minimumBet = 1;
+private int pot = 0;
+int playerTurnCount = 1;  
+int difficultyCount =0;
+Deck d = new Deck();
 
+Player p1 = new Player();
+        Player p2 = new Player();
+        AI AI2 = new AI();
+        AI AI3 = new AI();
+        
+        Cards cc1 = new Cards(0,0);
+        Cards cc2 = new Cards(0,0);
+        Cards cc3 = new Cards(0,0);
+        Cards cc4 = new Cards(0,0);
+        Cards cc5 = new Cards(0,0);
+        Cards p11 = new Cards(0,0);
+        Cards p12 = new Cards(0,0);
+        Cards p21 = new Cards(0,0);
+        Cards p22 = new Cards(0,0);
+        Cards AI21 = new Cards(0,0);
+        Cards AI22 = new Cards(0,0);
+        Cards AI31 = new Cards(0,0);
+        Cards AI32 = new Cards(0,0);
+        
+        
+        
+        
+        
+      public void updatePot(int x)
+      {
+          pot = pot + x;
+          jLabel25.setText("" + pot);
+      }  
+public void setPot(int x)
+{
+ pot = x;   
+}
+      public void resetPot()
+      {
+          pot = 0;
+          jLabel25.setText("" + pot);
+          
+      }        
     /**
      * Creates new form OnePlayer
      */
     public TwoPlayer() {
         initComponents();
+        
+        jLabel28.setText( "1"  );
+        
+       jButton2.setVisible(false);
+                jButton3.setVisible(false);
+                jButton8.setVisible(true);
+        
+        
+        
+        
+        
+        
+       
+        
+    
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -34,6 +94,15 @@ public class TwoPlayer extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        jButton7 = new javax.swing.JButton();
+        jDialog2 = new javax.swing.JDialog();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextPane2 = new javax.swing.JTextPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextPane1 = new javax.swing.JTextPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -55,7 +124,19 @@ public class TwoPlayer extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
         jButton6 = new javax.swing.JButton();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        jButton8 = new javax.swing.JButton();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        jButton9 = new javax.swing.JButton();
+        jButton10 = new javax.swing.JButton();
+
+        jDialog1.setSize(new java.awt.Dimension(801, 496));
 
         jPanel2.setBackground(new java.awt.Color(102, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -72,8 +153,13 @@ public class TwoPlayer extends javax.swing.JFrame {
         });
         jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 120, -1, -1));
 
-        jButton4.setText("Bet minimum");
-        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 180, -1, -1));
+        jButton4.setText("Call");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 180, 110, -1));
 
         jButton5.setText("All in");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -83,16 +169,43 @@ public class TwoPlayer extends javax.swing.JFrame {
         });
         jPanel2.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 230, 110, -1));
 
+        jLabel26.setText("Must bet at least");
+        jPanel2.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 120, -1, -1));
+
+        jLabel27.setText("0");
+        jPanel2.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 120, 30, -1));
+
+        jLabel29.setText("Otherwise hit call");
+        jPanel2.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 150, -1, -1));
+
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
         jDialog1.getContentPane().setLayout(jDialog1Layout);
         jDialog1Layout.setHorizontalGroup(
             jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 648, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 727, Short.MAX_VALUE)
         );
         jDialog1Layout.setVerticalGroup(
             jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE)
         );
+
+        jButton7.setText("jButton7");
+
+        jTextPane2.setText("The purpose of this game is to create the best hand possible between your hand and the common cards in the middle.\n\nTypes of hands:\nRoyal flush : A, K, Q, J, 10, all the same suit. \nStraight Flush: Five cards in a sequence, all in the same suit. \nFour of a kind: All four cards of the same rank.\nFull House: Three of a kind with a pair.\nFlush: Any five cards of the same suit, but not in a sequence\nStraight: Five cards in a sequence, but not of the same suit. \nThree of a kind: Three cards of the same rank.\nTwo Pair: Two different pairs.\nPair: Two cards of the same rank. \nHigh Card: Highest rank card in your hand ");
+        jScrollPane2.setViewportView(jTextPane2);
+
+        javax.swing.GroupLayout jDialog2Layout = new javax.swing.GroupLayout(jDialog2.getContentPane());
+        jDialog2.getContentPane().setLayout(jDialog2Layout);
+        jDialog2Layout.setHorizontalGroup(
+            jDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+        );
+        jDialog2Layout.setVerticalGroup(
+            jDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+        );
+
+        jScrollPane1.setViewportView(jTextPane1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -116,10 +229,10 @@ public class TwoPlayer extends javax.swing.JFrame {
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 350, 100, 30));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/b1fv.png"))); // NOI18N
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 400, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 410, -1, -1));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/b1fv.png"))); // NOI18N
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 400, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 410, -1, -1));
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/b1fv.png"))); // NOI18N
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 400, -1, -1));
@@ -128,31 +241,66 @@ public class TwoPlayer extends javax.swing.JFrame {
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 400, -1, -1));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/b1fv.png"))); // NOI18N
+        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel9MousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jLabel9MouseReleased(evt);
+            }
+        });
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 400, -1, -1));
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/b1fv.png"))); // NOI18N
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel10MousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jLabel10MouseReleased(evt);
+            }
+        });
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 400, -1, -1));
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/b1fv.png"))); // NOI18N
+        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel11MousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jLabel11MouseReleased(evt);
+            }
+        });
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 400, -1, -1));
 
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/b1fv.png"))); // NOI18N
+        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel12MouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel12MousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jLabel12MouseReleased(evt);
+            }
+        });
         jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 400, -1, -1));
 
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/b1fv.png"))); // NOI18N
-        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 50, -1, -1));
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 80, -1, -1));
 
         jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/b1fv.png"))); // NOI18N
-        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 50, -1, -1));
+        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 80, -1, -1));
 
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/b1fv.png"))); // NOI18N
-        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 50, -1, -1));
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 80, -1, -1));
 
         jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/b1fv.png"))); // NOI18N
-        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 50, -1, -1));
+        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 80, -1, -1));
 
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/b1fv.png"))); // NOI18N
-        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 50, -1, -1));
+        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 80, -1, -1));
 
         jButton2.setText("Bet");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -170,8 +318,11 @@ public class TwoPlayer extends javax.swing.JFrame {
         });
         jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 90, -1));
 
-        jLabel18.setText("Pot: 0");
-        jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 250, 160, -1));
+        jLabel18.setText("Pot: ");
+        jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 250, 30, -1));
+
+        jLabel19.setText("Current Player : Player ");
+        jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, -1, -1));
 
         jButton6.setText("Restart");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -180,6 +331,48 @@ public class TwoPlayer extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 90, -1));
+
+        jLabel21.setText("Chips:");
+        jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 330, -1, -1));
+
+        jLabel22.setText("Chips:");
+        jPanel1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 330, -1, -1));
+
+        jLabel23.setText("Chips:");
+        jPanel1.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 330, -1, -1));
+
+        jLabel24.setText("Chips:");
+        jPanel1.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 330, -1, -1));
+
+        jButton8.setText("Deal");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, 90, 30));
+
+        jLabel25.setText("0");
+        jPanel1.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 250, 70, -1));
+
+        jLabel28.setText("0");
+        jPanel1.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 50, -1));
+
+        jButton9.setText("Change to hard mode");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 20, 220, 30));
+
+        jButton10.setText("Instructions");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 20, 120, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -194,23 +387,158 @@ public class TwoPlayer extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // allows players to bet
-        start s = new start();
-        s.setVisible(true);
+        // allows player to bet
+        jDialog1.setVisible(true);
+        jLabel27.setText("" + minimumBet);
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        // player gives up hand
+        if(playerCount == 1)
+        {    
+        p1.didFold = 1;
+        playerCount = 2;
+        }
+        if(playerCount == 2)
+        {
+            p2.didFold = 1;
+            playerCount = 1;
+        }    
+        
+       if(p1.didFold == 1 &  p2.didFold==1)
+       {
+        AI2.subtractChips(minimumBet);
+        updatePot(minimumBet);
+        checkNegative(AI2);
+        AI3.subtractChips(minimumBet);
+        updatePot(minimumBet);
+        checkNegative(AI3);
+        updateChips();
+        getWinner();
+        reset();
+       }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+       //bet
+       if(playerCount == 1)
+       {   
+       int x = Integer.parseInt(jTextField1.getText());
+       if(x > minimumBet -p1.getTotalBet()){
+       if( x < p1.getChips())
+       {
+           p1.subtractChips(x);
+          //System.out.print(p1.getTotalBet());
+           if ( p1.getTotalBet() + x> minimumBet)
+           {
+               minimumBet = p1.getTotalBet() + x;
+           }    
+          // System.out.print(minimumBet);
+            playerCount = 2;
+            updatePot(x);
+           checkNegative(p1);
+           updateChips();
+            
+       }      
+           jDialog1.setVisible(false);
+           playerCount =2;
+           jLabel28.setText( "" + playerCount  );
+       if(playerCount == 2)
+       {   
+       x = Integer.parseInt(jTextField1.getText());
+       if(x > minimumBet -p2.getTotalBet()){
+       if( x < p2.getChips())
+       {
+           p2.subtractChips(x);
+          //System.out.print(p1.getTotalBet());
+           if ( p2.getTotalBet() + x> minimumBet)
+           {
+               minimumBet = p2.getTotalBet() + x;
+           }    
+          // System.out.print(minimumBet);
+            playerCount = 1;
+            updatePot(x);
+           checkNegative(p2);
+           updateChips();
+            
+       }      
+           jDialog1.setVisible(false);
+           playerCount =1;
+           jLabel28.setText( "" + playerCount  );
+           
+                   
+           x =AI2.AIturn(difficultyCount, minimumBet, p1);
+           updatePot(x);
+           x=AI3.AIturn(difficultyCount, minimumBet, p1);
+           updatePot(x);
+           updateChips();
+           
+           
+       }
+       }
+         
+        
+       }
+       
+       
+      
+       }
+       
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+        // bets all chips
+        
+       
+       if( playerCount == 1)
+       {  
+           int x = p1.getChips();
+           p1.subtractChips(x);
+           
+           
+               minimumBet = 20;
+              
+           playerCount = 2;
+           
+           updatePot(x);
+           updateChips();
+       }   
+       else if( playerCount == 2)
+       { 
+           
+           int x = p2.getChips();
+           p2.subtractChips(x);
+           
+           
+               minimumBet = 20;
+              
+           playerCount = 1;
+           
+           updatePot(x);
+           updateChips();
+                       
+       
+       updatePot(AI2.getChips());
+           AI2.subtractChips(AI2.getChips());
+           
+           //checkNegative(AI2);
+           updatePot(AI3.getChips());
+           AI3.subtractChips(AI3.getChips());
+       
+           //checkNegative(AI3);
+           setPot(80);
+           updatePot(0);
+           updateChips();
+           jButton8.setVisible(true);
+           turnCount = 5;
+       }    
+        
+       
+       
+       jDialog1.setVisible(false);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -219,6 +547,623 @@ public class TwoPlayer extends javax.swing.JFrame {
         s.setVisible(true);
     }//GEN-LAST:event_jButton6ActionPerformed
 
+    private void jLabel12MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MousePressed
+        // reveals card when clicked:
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ d.deck.get(0) +".png")));
+        
+        
+       
+        
+        
+    }//GEN-LAST:event_jLabel12MousePressed
+
+    private void jLabel12MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseReleased
+        //turns card back facedown when released
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/b1fv.png")));
+    }//GEN-LAST:event_jLabel12MouseReleased
+
+    private void jLabel11MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MousePressed
+        // reveals card when clicked
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ d.deck.get(1) +".png")));
+    }//GEN-LAST:event_jLabel11MousePressed
+
+    private void jLabel11MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseReleased
+        // turns card back facedown
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/b1fv.png")));
+    }//GEN-LAST:event_jLabel11MouseReleased
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // deals cards
+        
+        
+        if(turnCount == 1)
+        {    
+           if(p1.getChips()==0)
+            {
+            WinLose l = new WinLose();
+            l.winLose(4);
+            l.show();
+            }    
+            
+            reset();
+            deal();
+           
+           jButton2.setVisible(true);
+                jButton3.setVisible(true);
+                jButton8.setVisible(false);
+                turnCount = 2;
+                updateChips();
+                
+                
+                
+              
+        }
+        else if (turnCount == 2)
+        {
+              jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ cc1.toString() +".png"))); 
+              jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ cc2.toString() +".png"))); 
+              jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ cc3.toString() +".png"))); 
+              turnCount++;
+               jButton2.setVisible(true);
+                jButton3.setVisible(true);
+                jButton8.setVisible(false);
+                
+        
+        }
+        else if (turnCount ==3)
+        {    
+            jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ cc4.toString() +".png"))); 
+            turnCount++;
+             jButton2.setVisible(true);
+                jButton3.setVisible(true);
+                jButton8.setVisible(false);
+                
+        }
+        else if (turnCount ==4)
+        {    
+            jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ cc5.toString() +".png"))); 
+            turnCount = 5;
+             jButton2.setVisible(true);
+                jButton3.setVisible(true);
+                jButton8.setVisible(false);
+                
+                
+        }
+        else if (turnCount == 5)
+        {
+            getWinner();
+            checkForWinner();
+            updateChips();
+            turnCount = 1;
+         
+            jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ d.deck.get(0)  +".png")));
+            jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ d.deck.get(1) +".png")));
+            jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ d.deck.get(2)+".png")));
+            jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ d.deck.get(3) +".png")));
+            jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ d.deck.get(4) +".png")));
+            jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ d.deck.get(5) +".png")));
+            jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ d.deck.get(6) +".png")));
+            jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ d.deck.get(7) +".png")));
+            jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ cc1.toString() +".png"))); 
+              jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ cc2.toString() +".png"))); 
+              jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ cc3.toString() +".png"))); 
+              jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ cc4.toString() +".png"))); 
+              jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ cc5.toString() +".png"))); 
+           //  jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ cc4.toString() +".png"))); 
+           //jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ cc5.toString() +".png"))); 
+              
+                jButton8.setVisible(true);
+        }   
+        
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // bets the smallest amount allowed
+    
+       
+        if(minimumBet ==0)
+        {
+            minimumBet = 1;
+            updateChips();
+        }    
+       if(playerCount == 1)
+       {   
+        int x = minimumBet - p1.getTotalBet();
+        
+       
+           p1.subtractChips(x);
+           
+           updatePot(x);
+           checkNegative(p1);
+           minimumBet = p1.getTotalBet();
+           
+           updateChips();
+           playerTurnCount++;
+           playerCount = 2;
+       }   
+      if(playerCount == 2)
+       {   
+        if(p2.didFold ==1 || p2.didLose == 1)
+                {
+                    playerCount = 1;
+                }       
+        else
+        {
+        int x = minimumBet - p2.getTotalBet();
+        
+       
+           p2.subtractChips(x);
+           
+           updatePot(x);
+           checkNegative(p2);
+           minimumBet = p2.getTotalBet();
+           
+           updateChips();
+           playerTurnCount++;
+           playerCount = 1;
+       } 
+       }
+       playerTurnCount = 5;
+      
+      if(AI2.getChips() != 0)
+       { 
+       if(AI2.didFold == 0)
+       {    
+       int x= minimumBet - AI2.getTotalBet();
+           AI2.subtractChips(minimumBet  - AI2.getTotalBet());
+       updatePot(x );
+       checkNegative(AI2);
+       updateChips();
+       }
+       }
+       if(AI3.getChips() != 0)
+       { 
+           if(AI3.didFold == 0)
+           {    
+           int x= minimumBet - AI3.getTotalBet();
+               AI3.subtractChips(minimumBet  - AI3.getTotalBet());
+            updatePot(x);
+            checkNegative(AI3);
+            updateChips();
+           }
+       }
+       updateChips();
+       //checkTurnCount();
+       jLabel27.setText("" + minimumBet);
+       jDialog1.setVisible(false);
+       jButton2.setVisible(false);
+                jButton3.setVisible(false);
+                jButton8.setVisible(true);
+                playerCount = 1;
+       jLabel28.setText("" +playerCount);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel12MouseClicked
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        
+        if (difficultyCount == 0)
+        {
+            jButton9.setText("change difficulty to easy");
+            difficultyCount = 1;
+            
+                      
+            
+        } 
+        else if (difficultyCount == 1)
+        {
+            jButton9.setText("change difficulty to hard");
+            difficultyCount = 0;
+        }
+        
+        
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        // displays instructions
+        jDialog2.setVisible(true);
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jLabel10MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MousePressed
+jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ d.deck.get(2) +".png")));
+                // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel10MousePressed
+
+    private void jLabel9MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseReleased
+jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/b1fv.png")));        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel9MouseReleased
+
+    private void jLabel9MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MousePressed
+jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ d.deck.get(3) +".png")));
+                // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel9MousePressed
+
+    private void jLabel10MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseReleased
+jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/b1fv.png")));        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel10MouseReleased
+     public  void updateChips()
+        {        
+        
+          
+        
+            jLabel21.setText("Chips:" + p1.getChips());
+            jLabel22.setText("Chips:" + p2.getChips());
+            jLabel23.setText("Chips:" + AI2.getChips());
+            jLabel24.setText("Chips:" + AI3.getChips());
+            jLabel27.setText("" + minimumBet);
+            
+            
+            
+        }
+     public void getWinner()
+     {
+        checkCards c = new checkCards();
+        p1.sortHand(p1.hand);
+        p1.setHandValue(c.checkCards(p1.hand));
+         p2.sortHand(p2.hand);
+        p2.setHandValue(c.checkCards(p2.hand));
+        AI2.sortHand(p1.hand);
+        AI2.setHandValue(c.checkCards(AI2.hand));
+        AI3.sortHand(AI3.hand);
+        AI3.setHandValue(c.checkCards(AI3.hand));
+        if(p1.didFold == 1)
+        {    
+            p1.setHandValue(0);
+        }
+        if(p2.didFold == 1)
+        {    
+            p2.setHandValue(0);
+        }
+        if(AI2.didFold == 1)
+        {    
+            AI2.setHandValue(0);
+        }
+        if(AI3.didFold == 1)
+        {    
+            AI3.setHandValue(0);
+        }
+        
+        if (p1.getHandValue() > p2.getHandValue() && p1.getHandValue() > AI2.getHandValue() && p1.getHandValue() > AI3.getHandValue())
+        {
+          p1.addChips(pot);   
+          resetPot();
+          updateChips();
+        } 
+        else if (p2.getHandValue() > p1.getHandValue() && p2.getHandValue() > AI2.getHandValue() && p2.getHandValue() > AI3.getHandValue())
+        {
+          p2.addChips(pot);  
+          resetPot();
+          updateChips();
+        } 
+        else if (AI2.getHandValue() > p1.getHandValue() && AI2.getHandValue() > p2.getHandValue() && AI2.getHandValue() > AI3.getHandValue())
+        {
+          AI2.addChips(pot);  
+          resetPot();
+          updateChips();
+        } 
+        else if (AI3.getHandValue() > p1.getHandValue() && AI3.getHandValue() > p2.getHandValue() && AI3.getHandValue() > AI2.getHandValue())
+        {
+          AI3.addChips(pot); 
+          resetPot();
+          updateChips();
+        } 
+        else if (p1.getHandValue() == p2.getHandValue() && p1.getHandValue() == AI2.getHandValue() && p1.getHandValue() == AI3.getHandValue())
+        {
+            p1.addChips(pot/4);
+            p2.addChips(pot/4);
+            AI2.addChips(pot/4);
+            AI3.addChips(pot/4);
+        }
+        else if (p1.getHandValue() == p2.getHandValue() && p1.getHandValue() == AI2.getHandValue())
+        {
+            p1.addChips(pot/3);
+            p2.addChips(pot/3);
+            AI2.addChips(pot/3);
+            
+        } 
+        else if (p1.getHandValue() == p2.getHandValue() && p1.getHandValue() == AI3.getHandValue())
+        {
+            p1.addChips(pot/3);
+            p2.addChips(pot/3);
+            AI3.addChips(pot/3);
+        }
+        else if (p1.getHandValue() == p2.getHandValue())
+        {
+            p1.addChips(pot/2);
+            p2.addChips(pot/2);
+            
+            
+        }
+        else if (p1.getHandValue() == AI2.getHandValue())
+        {
+            p1.addChips(pot/2);
+            AI2.addChips(pot/2);
+            
+            
+        }
+        else if (p1.getHandValue() == AI3.getHandValue())
+        {
+            p1.addChips(pot/2);
+            AI3.addChips(pot/2);
+            
+            
+        }
+        else if (p2.getHandValue() == AI2.getHandValue())
+        {
+            AI2.addChips(pot/2);
+            p2.addChips(pot/2);
+            
+            
+        }
+        else if (p2.getHandValue() == AI3.getHandValue())
+        {
+            AI3.addChips(pot/2);
+            p2.addChips(pot/2);
+            
+            
+        }
+        else if (AI2.getHandValue() == AI3.getHandValue())
+        {
+            AI2.addChips(pot/2);
+            AI3.addChips(pot/2);
+            
+            
+        }
+        else if (p2.getHandValue() == AI2.getHandValue() && p2.getHandValue() == AI3.getHandValue())
+        {       
+            p2.addChips(pot/3);
+            AI2.addChips(pot/3);
+            AI3.addChips(pot/3);
+        } 
+        resetPot();
+          updateChips();
+     }  
+     public void deal()
+     {
+         d.deck();
+        d.shuffle();
+        //System.out.print(d.toString());
+        p1.addCard(d.deck.get(0));
+        p1.addCard(d.deck.get(1));
+        p2.addCard(d.deck.get(2));
+        p2.addCard(d.deck.get(3));
+        AI2.addCard(d.deck.get(4));
+        AI2.addCard(d.deck.get(5));
+       AI3.addCard(d.deck.get(6));
+       AI3.addCard(d.deck.get(7));
+       Cards p11 = (d.deck.get(0));
+        Cards p12 = (d.deck.get(1));
+        Cards p21 = (d.deck.get(2));
+        Cards p22 = (d.deck.get(3));
+        Cards AI21 = (d.deck.get(4));
+        Cards AI22 = (d.deck.get(5));
+        Cards AI31 = (d.deck.get(6));
+        Cards AI32 = (d.deck.get(7));
+        
+        
+        
+             cc1 = d.deck.get(8);
+             deckCount++;
+             cc2 = d.deck.get(9);
+             deckCount++;
+             cc3 = d.deck.get(10);
+             deckCount++;
+             cc4 = d.deck.get(11);
+             deckCount++;
+             cc5 = d.deck.get(12);
+             deckCount++;
+             jButton8.setVisible(false);
+             turnCount = turnCount + 1;
+             p1.addCard(cc1);
+             p1.addCard(cc2);
+             p1.addCard(cc3);
+             p1.addCard(cc4);
+             p1.addCard(cc5);
+             p2.addCard(cc1);
+             p2.addCard(cc2);
+              p2.addCard(cc3);
+              p2.addCard(cc4);
+              p2.addCard(cc5);
+              AI2.addCard(cc1);
+             AI2.addCard(cc2);
+              AI2.addCard(cc3);
+              AI2.addCard(cc4);
+              AI2.addCard(cc5);
+              AI3.addCard(cc1);
+             AI3.addCard(cc2);
+              AI3.addCard(cc3);
+              AI3.addCard(cc4);
+              AI3.addCard(cc5);
+     }   
+        public void checkTurn()
+        {        
+            int p ;
+            if (playerCount != 1)
+            {
+            } else {
+                playerCount = 2;
+    }  
+                if (p1.didFold == 1)
+                {    
+                    
+                    p2.subtractChips(minimumBet);
+                    checkNegative(p2);
+                    AI2.subtractChips(minimumBet);
+                    checkNegative(AI2);
+                    AI3.subtractChips(minimumBet);
+                    checkNegative(AI3);
+                    playerTurnCount = 5;
+                    checkTurnCount();
+                    
+                            
+                }
+                
+            
+                
+            
+            
+            
+            
+           if (playerCount == 2)
+           {
+                 
+                    
+                    
+                            
+                    
+                
+                    
+                
+                                
+            }        
+            if (playerCount == 3)
+            {
+                if (AI2.didFold == 1)
+                {    
+                    playerCount++;
+                    updateChips();
+                            
+                }    
+                else
+                {    
+                 p = AI2.AIturn(difficultyCount, minimumBet, AI2);
+                playerCount++;
+                updateChips();
+                updatePot(p);
+                checkNegative(AI2);
+                
+                if(AI2.getTotalBet() + p > minimumBet)
+                {
+                   minimumBet = AI2.getTotalBet() + p; 
+                }    
+                jLabel27.setText("" + minimumBet);
+                }
+            } 
+            if (playerCount == 4)
+            {
+                if (AI3.didFold == 1)
+                {    
+                  //  p = AI3.AIturn(difficultyCount, minimumBet, AI3);
+                   playerCount++;
+                    //updateChips();
+                
+                //jLabel27.setText("" + minimumBet);
+                            
+                }    
+                else
+                {
+                p = AI3.AIturn(difficultyCount, minimumBet, AI3);
+                playerCount = 1;
+                
+                updatePot(p);
+                checkNegative(AI3);
+                updateChips();
+                if(AI3.getTotalBet() + p > minimumBet)
+                {
+                   minimumBet = AI3.getTotalBet() + p; 
+                }    
+                
+                jLabel27.setText("" + minimumBet);
+               }
+            }       
+       }  
+        
+
+        public void checkTurnCount()
+        {
+            if (playerTurnCount == 5)
+            {
+                jButton2.disable();
+                jButton3.disable();
+                jButton8.setVisible(true);                
+            }    
+        }  
+        public void checkNegative(Player p)
+        {
+            if(p.getChips() < 1)
+            {
+              int x = p.getChips();
+                pot = pot - p.getTotalBet();
+                updatePot(x);
+                p.setChips(0);
+                p.setTotalBet(0);
+            }    
+        }  
+        public void reset()
+        {
+            resetPot();
+            updateChips();
+            jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/b1fv.png")));
+            jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/b1fv.png")));
+            jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/b1fv.png")));
+            jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/b1fv.png")));
+            jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/b1fv.png")));
+            jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/b1fv.png")));
+            jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/b1fv.png")));
+            jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/b1fv.png")));
+            jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/b1fv.png"))); 
+              jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/b1fv.png"))); 
+              jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/b1fv.png"))); 
+              jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/b1fv.png")));
+              jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/b1fv.png")));
+            minimumBet =0;
+            playerCount =1;
+            p1.resetTotalBet();
+            p2.resetTotalBet();
+            AI2.resetTotalBet();
+            AI3.resetTotalBet();
+            jButton2.setVisible(false);
+                jButton3.setVisible(false);
+                jButton8.setVisible(true);
+                p1.didFold = 0;
+                p2.didFold = 0;
+                AI2.didFold = 0;
+                AI3.didFold = 0;
+                p1.didLose = 0;
+                p2.didLose = 0;
+                AI2.didLose = 0;
+                AI3.didLose = 0;
+                turnCount = 1;
+                playerTurnCount = 1;
+                
+            
+            
+        } 
+        public void checkForWinner()
+        {        
+           if(p1.getChips() >= 80 )
+        {
+            WinLose l = new WinLose();
+            l.winLose(1);
+            l.show();
+            
+        }
+        if(p2.getChips() >= 80 )
+        {
+            WinLose l = new WinLose();
+            l.winLose(2);
+            l.show();
+            
+        }
+        if(AI2.getChips() >= 80 )
+        {
+            WinLose l = new WinLose();
+            l.winLose(3);
+            l.show();
+            
+        }
+        if(AI3.getChips() >= 80 )
+        {
+            WinLose l = new WinLose();
+            l.winLose(4);
+            l.show();
+            
+        }
+           
+        }    
+                            
     /**
      * @param args the command line arguments
      */
@@ -252,17 +1197,24 @@ public class TwoPlayer extends javax.swing.JFrame {
             public void run() {
                 new TwoPlayer().setVisible(true);
             }
+            
         });
+       
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JDialog jDialog1;
+    private javax.swing.JDialog jDialog2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -273,8 +1225,18 @@ public class TwoPlayer extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -284,6 +1246,11 @@ public class TwoPlayer extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextPane jTextPane1;
+    private javax.swing.JTextPane jTextPane2;
     // End of variables declaration//GEN-END:variables
+  
 }

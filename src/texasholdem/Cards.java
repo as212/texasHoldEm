@@ -38,15 +38,15 @@ public class Cards implements Comparable<Cards> {
     @Override
     public int compareTo(Cards compareCard) {
         
-        int compareSuit = ((Cards)compareCard).getSuit();
+        //int compareSuit = ((Cards)compareCard).getSuit();
         int compareValue=((Cards)compareCard).getValue();
-        if(this.suit == compareSuit)
-        {
+        //if(this.suit == compareSuit)
+        //{
             /* For Ascending order of values */
             return this.value-compareValue;
-         }
+        // }
         /* For Ascending order of suits */
-        else return this.suit - compareSuit; 
+       // else return this.suit - compareSuit; 
      }
 
 

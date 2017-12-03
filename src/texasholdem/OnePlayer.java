@@ -29,17 +29,29 @@ Player p1 = new Player();
         Cards cc3 = new Cards(0,0);
         Cards cc4 = new Cards(0,0);
         Cards cc5 = new Cards(0,0);
-
+        Cards p11 = new Cards(0,0);
+        Cards p12 = new Cards(0,0);
+        Cards AI11 = new Cards(0,0);
+        Cards AI12 = new Cards(0,0);
+        Cards AI21 = new Cards(0,0);
+        Cards AI22 = new Cards(0,0);
+        Cards AI31 = new Cards(0,0);
+        Cards AI32 = new Cards(0,0);
         
         
         
         
         
-      public void updatePot(int x)
+      public int updatePot(int x)
       {
           pot = pot + x;
           jLabel25.setText("" + pot);
-      }  
+          return pot;
+      } 
+      public int getPot()
+      {
+          return pot;
+      }        
 public void setPot(int x)
 {
  pot = x;   
@@ -222,10 +234,10 @@ public void setPot(int x)
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 350, 100, 30));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/b1fv.png"))); // NOI18N
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 400, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 410, -1, -1));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/b1fv.png"))); // NOI18N
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 400, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 410, -1, -1));
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/b1fv.png"))); // NOI18N
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 400, -1, -1));
@@ -405,7 +417,24 @@ public void setPot(int x)
            }    
           // System.out.print(minimumBet);
             playerCount = 1;
-          
+            updatePot(x);
+           checkNegative(p1);
+           updateChips();
+            
+              
+           jDialog1.setVisible(false);
+           playerCount =1;
+           jLabel28.setText( "" + playerCount  );
+           x =AI1.AIturn(difficultyCount, minimumBet, p1);
+           
+           updatePot(x);
+           
+                   
+           x =AI2.AIturn(difficultyCount, minimumBet, p1);
+           updatePot(x);
+           x=AI3.AIturn(difficultyCount, minimumBet, p1);
+           updatePot(x);
+           updateChips();
            
            
        }
@@ -417,79 +446,7 @@ public void setPot(int x)
        
       
        }
-       updatePot(x);
-           checkNegative(p1);
-           updateChips();
-            playerTurnCount = 1;
-            playerCount = 1;
-            
-            int p =0;
-            if(AI1.getChips() == 0)
-                {
-                    
-                }    
-                else if (AI1.didFold == 1)
-                {    
-                    
-                }
-                else
-                {      
-            p = AI1.AIturn(difficultyCount, minimumBet, AI1);
-                
-                playerCount++;
-                updateChips();
-                updatePot(p);
-                checkNegative(AI1);
-                updateChips();
-                if(AI1.getTotalBet() + p > minimumBet)
-                {
-                   minimumBet = AI1.getTotalBet() + p; 
-                    
-                }
-                } 
-                if(AI2.getChips() == 0)
-                {
-                    
-                }    
-                else if (AI2.didFold == 1)
-                {    
-                    
-                }
-                else
-                {   
-                AI2.subtractChips(p+3);
-                
-                playerCount++;
-                updateChips();
-                updatePot(p+3);
-                checkNegative(AI2);
-                updateChips();
-                if(AI2.getTotalBet() + p > minimumBet)
-                {
-                   minimumBet = AI2.getTotalBet() + p; 
-                    
-                }
-                } 
-              if(AI3.getChips() == 0)
-                {
-                    
-                }    
-                else if (AI3.didFold == 1)
-                {    
-                    
-                }
-                else
-                {   
-                AI3.subtractChips(p+5);
-              minimumBet = AI3.getTotalBet();
-               checkNegative(AI3);
-              updatePot(p+5);                      
-                }
-              updateChips();
-              
-           jDialog1.setVisible(false);
-           playerCount =1;
-           jLabel28.setText( "" + playerCount  );
+       
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -507,6 +464,7 @@ public void setPot(int x)
            
            updatePot(x);
            updateChips();
+           
            updatePot(AI1.getChips());
            AI1.subtractChips(AI1.getChips());
            
@@ -564,11 +522,18 @@ public void setPot(int x)
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // deals cards
-        checkForWinner();
+        
         
         if(turnCount == 1)
         {    
-           reset();
+           if(p1.getChips()==0)
+            {
+            WinLose l = new WinLose();
+            l.winLose(4);
+            l.show();
+            }    
+            
+            reset();
             deal();
            
            jButton2.setVisible(true);
@@ -615,18 +580,23 @@ public void setPot(int x)
         else if (turnCount == 5)
         {
             getWinner();
+            checkForWinner();
             updateChips();
             turnCount = 1;
-            jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ d.deck.get(0) +".png")));
+         System.out.print(p1.hand);
+        System.out.print(AI1.hand);
+        System.out.print(AI2.hand);
+        System.out.print(AI3.hand);
+            jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ d.deck.get(0)  +".png")));
             jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ d.deck.get(1) +".png")));
-            jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ AI1.hand.get(0)+".png")));
-            jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ AI1.hand.get(1) +".png")));
-            jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ AI2.hand.get(0) +".png")));
-            jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ AI2.hand.get(1) +".png")));
+            jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ d.deck.get(2)+".png")));
+            jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ d.deck.get(3) +".png")));
+            jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ d.deck.get(4) +".png")));
+            jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ d.deck.get(5) +".png")));
             jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ d.deck.get(6) +".png")));
             jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ d.deck.get(7) +".png")));
-             jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ cc4.toString() +".png"))); 
-           jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ cc5.toString() +".png"))); 
+           //  jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ cc4.toString() +".png"))); 
+           //jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texasholdem/"+ cc5.toString() +".png"))); 
               
                 jButton8.setVisible(true);
         }   
@@ -636,6 +606,7 @@ public void setPot(int x)
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // bets the smallest amount allowed
     
+       
         if(minimumBet ==0)
         {
             minimumBet = 1;
@@ -658,22 +629,37 @@ public void setPot(int x)
        playerTurnCount = 5;
        if(AI1.getChips() != 0)
        {    
+       if(AI1.didFold == 0)
+       {   
+       x= minimumBet - AI1.getTotalBet();
        AI1.subtractChips(minimumBet - AI1.getTotalBet());
-       updatePot(minimumBet  - AI1.getTotalBet());
+       updatePot(x);
        checkNegative(AI1);
+       
+       updateChips();
+       }
        }
       if(AI2.getChips() != 0)
        { 
-       AI2.subtractChips(minimumBet  - AI2.getTotalBet());
-       updatePot(minimumBet  - AI2.getTotalBet());
+       if(AI2.didFold == 0)
+       {    
+       x= minimumBet - AI2.getTotalBet();
+           AI2.subtractChips(minimumBet  - AI2.getTotalBet());
+       updatePot(x );
        checkNegative(AI2);
+       updateChips();
+       }
        }
        if(AI3.getChips() != 0)
        { 
-       AI3.subtractChips(minimumBet  - AI3.getTotalBet());
-       updatePot(minimumBet  - AI3.getTotalBet());
-       checkNegative(AI3);
-       
+           if(AI3.didFold == 0)
+           {    
+            x= minimumBet - AI3.getTotalBet();
+               AI3.subtractChips(minimumBet  - AI3.getTotalBet());
+            updatePot(x);
+            checkNegative(AI3);
+            updateChips();
+           }
        }
        updateChips();
        //checkTurnCount();
@@ -854,7 +840,7 @@ public void setPot(int x)
      {
          d.deck();
         d.shuffle();
-        System.out.print(d.toString());
+        //System.out.print(d.toString());
         p1.addCard(d.deck.get(0));
         p1.addCard(d.deck.get(1));
         AI1.addCard(d.deck.get(2));
@@ -863,10 +849,15 @@ public void setPot(int x)
         AI2.addCard(d.deck.get(5));
        AI3.addCard(d.deck.get(6));
        AI3.addCard(d.deck.get(7));
-        System.out.print(p1.hand);
-        System.out.print(AI1.hand);
-        System.out.print(AI2.hand);
-        System.out.print(AI3.hand);
+       Cards p11 = (d.deck.get(0));
+        Cards p12 = (d.deck.get(1));
+        Cards AI11 = (d.deck.get(2));
+        Cards AI12 = (d.deck.get(3));
+        Cards AI21 = (d.deck.get(4));
+        Cards AI22 = (d.deck.get(5));
+        Cards AI31 = (d.deck.get(6));
+        Cards AI32 = (d.deck.get(7));
+        
         
         
              cc1 = d.deck.get(8);
@@ -1057,6 +1048,10 @@ public void setPot(int x)
                 AI1.didFold = 0;
                 AI2.didFold = 0;
                 AI3.didFold = 0;
+                p1.didLose = 0;
+                AI1.didLose = 0;
+                AI2.didLose = 0;
+                AI3.didLose = 0;
                 turnCount = 1;
                 playerTurnCount = 1;
                 
